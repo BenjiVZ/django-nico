@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link href="{% static 'css/auth.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="container">
+        <div class="auth-card">
+            <div class="auth-inner">
+                <!-- Panel lateral con botón de cambio -->
+                <div class="auth-side">
+                    <button id="toggleForm" class="toggle-btn">
+                        <div class="toggle-content login active">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Iniciar Sesión</span>
+                        </div>
+                        <div class="toggle-content register">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Registrarse</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Contenedor de Formularios -->
+                <div class="forms-container">
+                    <!-- Formulario de Login -->
+                    <form id="loginForm" action="{% url 'login' %}" method="post" class="auth-form active">
+                        {% csrf_token %}
+                        <h2>Bienvenido de nuevo</h2>
+                        <p class="form-subtitle">Ingresa tus credenciales para continuar</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="login-username">Usuario</label>
+                            <input type="text" id="login-username" name="username" class="form-control" required placeholder="Ingresa tu usuario">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="login-password">Contraseña</label>
+                            <input type="password" id="login-password" name="password" class="form-control" required placeholder="Ingresa tu contraseña">
+                        </div>
+                        <button type="submit" class="btn-auth">Iniciar Sesión</button>
+                    </form>
+
+                    <!-- Formulario de Registro -->
+                    <form id="registerForm" action="{% url 'registro' %}" method="post" class="auth-form">
+                        {% csrf_token %}
+                        <h2>Crear nueva cuenta</h2>
+                        <p class="form-subtitle">Completa los datos para registrar tu agencia</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Usuario</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" name="password1" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirmar Contraseña</label>
+                            <input type="password" name="password2" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nombre de la Agencia</label>
+                            <input type="text" name="nombre_agencia" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Dirección</label>
+                            <input type="text" name="direccion" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Teléfono</label>
+                            <input type="tel" name="telefono" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn-auth">Registrarse</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('toggleForm');
+    const forms = document.querySelectorAll('.auth-form');
+    const toggleContents = document.querySelectorAll('.toggle-content');
+    let isLogin = true;
+
+    toggleBtn.addEventListener('click', () => {
+        isLogin = !isLogin;
+        
+        // Animar el botón
+        toggleBtn.classList.toggle('flipped');
+        toggleContents.forEach(content => content.classList.toggle('active'));
+        
+        // Animar formularios
+        forms.forEach(form => {
+            if (form.id === `${isLogin ? 'login' : 'register'}Form`) {
+                form.style.animation = 'slideIn 0.5s forwards';
+                form.classList.add('active');
+            } else {
+                form.style.animation = 'slideOut 0.5s forwards';
+                form.classList.remove('active');
+            }
+        });
+    });
+
+    // Manejar envío de formularios
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "{% url 'dashboard' %}";
+                } else {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'error-message';
+                    errorDiv.textContent = data.error || 'Error en el proceso';
+                    this.insertBefore(errorDiv, this.firstChild);
+                }
+            });
+        });
+    });
+});
+</script>
+{% endblock %} 

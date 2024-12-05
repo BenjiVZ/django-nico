@@ -1,0 +1,452 @@
+.auth-container {
+    background-image: linear-gradient(to right bottom, #090910, #22182d, #441f42, #6f1e4c, #991b48, #b02740, #c23a33, #cf5022, #d36719, #d47c10, #d3910d, #d0a616);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 3rem 0;
+    position: relative;
+}
+
+/* Efecto de overlay con partículas */
+.auth-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(9, 9, 16, 0.3) 100%);
+}
+
+.auth-card {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    animation: slideUp 0.5s ease-out;
+}
+
+.auth-tabs {
+    display: flex;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.auth-tab {
+    padding: 1rem 2rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.auth-tab:hover {
+    color: #d0a616;
+}
+
+.auth-tab.active {
+    color: #d0a616;
+}
+
+.auth-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #d0a616;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #d0a616;
+    box-shadow: 0 0 0 0.2rem rgba(208, 166, 22, 0.15);
+    color: white;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-auth {
+    background: #d0a616;
+    color: #090910;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btn-auth:hover {
+    background: #cf5022;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(207, 80, 34, 0.3);
+}
+
+.error-message {
+    background: rgba(153, 27, 72, 0.2);
+    color: #ff9eb5;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    border: 1px solid rgba(153, 27, 72, 0.3);
+}
+
+/* Animaciones */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-card {
+    animation: slideUp 0.5s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .auth-card {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .auth-tab {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+.auth-inner {
+    display: flex;
+    gap: 3rem;
+    height: 100%;
+    overflow: hidden;
+}
+
+.auth-side {
+    width: 160px;
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.side-btn {
+    background: transparent;
+    border: none;
+    padding: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+}
+
+.side-btn i {
+    font-size: 1.2rem;
+    width: 24px;
+}
+
+.side-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #d0a616;
+}
+
+.side-btn.active {
+    background: rgba(208, 166, 22, 0.2);
+    color: #d0a616;
+}
+
+.forms-container {
+    flex: 1;
+    position: relative;
+}
+
+.auth-form {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(50px) scale(0.95);
+    padding: 1rem 0;
+}
+
+.auth-form.active {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+}
+
+.auth-form h2 {
+    color: #d0a616;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.form-subtitle {
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2rem;
+}
+
+/* Animaciones mejoradas */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50px) scale(0.95);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auth-container {
+        padding: 1rem;
+        align-items: flex-start;
+    }
+
+    .auth-card {
+        padding: 1.5rem;
+    }
+
+    .auth-inner {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .auth-side {
+        width: 100%;
+        padding: 0;
+    }
+
+    .toggle-btn {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+    }
+
+    .toggle-content i {
+        font-size: 1.5rem;
+    }
+
+    .toggle-content span {
+        font-size: 0.9rem;
+    }
+
+    .form-group {
+        margin-bottom: 0.8rem;
+    }
+}
+
+.toggle-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: 150px;
+    height: 150px;
+    position: relative;
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+.toggle-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(208, 166, 22, 0.1);
+    border: 1px solid rgba(208, 166, 22, 0.2);
+    border-radius: 50%;
+    backface-visibility: hidden;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+}
+
+.toggle-content i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.toggle-content span {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.toggle-content.register {
+    transform: rotateY(180deg);
+    background: rgba(207, 80, 34, 0.1);
+    border-color: rgba(207, 80, 34, 0.2);
+}
+
+.toggle-btn.flipped .toggle-content.login {
+    transform: rotateY(-180deg);
+}
+
+.toggle-btn.flipped .toggle-content.register {
+    transform: rotateY(0);
+}
+
+.toggle-content.active {
+    color: #d0a616;
+}
+
+/* Mejoras en las animaciones de los formularios */
+.auth-form {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(50px) scale(0.95);
+    padding: 1rem 0;
+}
+
+.auth-form.active {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50px) scale(0.95);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auth-container {
+        padding: 1rem;
+        align-items: flex-start;
+    }
+
+    .auth-card {
+        padding: 1.5rem;
+    }
+
+    .auth-inner {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .auth-side {
+        width: 100%;
+        padding: 0;
+    }
+
+    .toggle-btn {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+    }
+
+    .toggle-content i {
+        font-size: 1.5rem;
+    }
+
+    .toggle-content span {
+        font-size: 0.9rem;
+    }
+
+    .form-group {
+        margin-bottom: 0.8rem;
+    }
+}
+
+.forms-container::-webkit-scrollbar,
+.forms-container::-webkit-scrollbar-track,
+.forms-container::-webkit-scrollbar-thumb,
+.forms-container::-webkit-scrollbar-thumb:hover {
+    display: none;
+}
+
+.auth-form > :last-child {
+    margin-bottom: 2rem;
+} 

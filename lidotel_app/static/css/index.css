@@ -1,0 +1,105 @@
+.hero-section {
+    background: linear-gradient(135deg, #090910 0%, #36363b 100%);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    color: #eceeff;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin: 20px 0;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease 0.2s forwards;
+}
+
+.btn-cta {
+    background: #d0a616;
+    color: #090910;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease 0.4s forwards;
+}
+
+.btn-cta:hover {
+    background: #eceeff;
+    color: #090910;
+    transform: translateY(-2px);
+}
+
+.features-section {
+    background: #eceeff;
+    padding: 80px 0;
+}
+
+.feature-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.feature-card.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #d0a616;
+    margin-bottom: 20px;
+}
+
+.stats-section {
+    background: #090910;
+    padding: 60px 0;
+    color: #eceeff;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 20px;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: scaleIn 0.5s ease forwards;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #d0a616;
+    margin-bottom: 10px;
+}
+
+.cta-section {
+    background: linear-gradient(135deg, #36363b 0%, #090910 100%);
+    padding: 80px 0;
+    color: #eceeff;
+    text-align: center;
+} 

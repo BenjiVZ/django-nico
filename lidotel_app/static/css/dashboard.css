@@ -1,0 +1,342 @@
+.points-counter {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: linear-gradient(45deg, #c62e2e, #902424);
+    padding: 15px 25px;
+    border-radius: 15px;
+    color: #fdf3f3;
+    box-shadow: 0 4px 15px rgba(120, 36, 36, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.points-counter:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(120, 36, 36, 0.4);
+}
+
+.fire-icon {
+    color: #facece;
+    font-size: 24px;
+    animation: flame 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes flame {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
+}
+
+.points-value {
+    font-weight: bold;
+    color: #fdf3f3;
+}
+
+.view-container {
+    position: relative;
+    min-height: 500px;
+}
+
+.view-section {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease-in-out;
+    transform: translateX(50px);
+}
+
+.view-section.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* Botones de vista */
+.view-buttons {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.view-btn {
+    padding: 12px 25px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 50px;
+    background: #36363b;
+    color: #eceeff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.view-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    background: #090910;
+    color: #d0a616;
+}
+
+.view-btn.active {
+    background: #090910;
+    color: #d0a616;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Formulario de reserva */
+.reservation-form {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    animation: slideIn 0.5s ease-out;
+}
+
+.form-section {
+    background: #eceeff;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+}
+
+.form-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background: #eceeff;
+}
+
+.form-section h3 {
+    color: #090910;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Grid de preferencias */
+.preferences-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.custom-checkbox:hover {
+    background: rgba(26, 35, 126, 0.05);
+}
+
+/* Tabla de reservas */
+.reservations-table {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    animation: slideIn 0.5s ease-out;
+}
+
+.table thead th {
+    background: #36363b;
+    color: #eceeff;
+    border: none;
+    padding: 15px;
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(208, 166, 22, 0.1);
+    transform: scale(1.01);
+}
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-pendiente { 
+    background-color: #d0a616; 
+    color: #090910;
+}
+.status-confirmada { 
+    background-color: #36363b; 
+    color: #eceeff; 
+}
+.status-cancelada { 
+    background-color: #dc3545; 
+    color: white; 
+}
+.status-completada { 
+    background-color: #17a2b8; 
+    color: white; 
+}
+
+.edit-btn {
+    padding: 8px;
+    border-radius: 50%;
+    background: #36363b;
+    color: #eceeff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-btn:hover {
+    background: #090910;
+    color: #d0a616;
+    transform: rotate(15deg);
+}
+
+.edit-btn i {
+    font-size: 14px;
+}
+
+/* Modal de edición */
+.modal-content {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #090910 0%, #36363b 100%);
+    color: #eceeff;
+    border: none;
+    padding: 20px;
+}
+
+/* Inputs y Forms */
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #d0a616;
+    box-shadow: 0 0 0 0.2rem rgba(208, 166, 22, 0.25);
+}
+
+textarea.form-control {
+    min-height: 100px;
+}
+
+/* Datepicker personalizado */
+.flatpickr-calendar {
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    border: none;
+    margin-top: 5px;
+}
+
+.flatpickr-calendar.animate.open {
+    animation: fpFadeInDown 200ms ease-out;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover {
+    background: #d0a616 !important;
+    border-color: #d0a616 !important;
+    color: #090910;
+}
+
+.flatpickr-day:hover {
+    background: rgba(208, 166, 22, 0.1);
+}
+
+.flatpickr-current-month {
+    font-size: 1.1em;
+    padding: 10px 0;
+}
+
+.flatpickr-monthDropdown-months {
+    font-weight: 500;
+}
+
+.flatpickr-weekday {
+    font-weight: 500;
+    color: #36363b;
+}
+
+/* Ocultar calendarios adicionales */
+.flatpickr-calendar:not(:first-child) {
+    display: none !important;
+}
+
+/* Animaciones */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Notificación de puntos ganados */
+.points-earned {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(198, 46, 46, 0.95);
+    color: #fdf3f3;
+    padding: 20px 40px;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    animation: fadeInOut 2s ease-in-out forwards;
+    z-index: 1100;
+    box-shadow: 0 4px 15px rgba(120, 36, 36, 0.3);
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    10% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    20% { transform: translate(-50%, -50%) scale(1); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .preferences-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .points-counter {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        font-size: 0.9rem;
+    }
+    
+    .view-btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+} 

@@ -1,0 +1,309 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="points-counter">
+    <i class="fas fa-fire fire-icon"></i>
+    <span class="points-value">{{ agencia.puntos_actuales }}</span> puntos
+</div>
+
+<div class="container mt-5">
+    <div class="view-buttons">
+        <button class="view-btn active" data-view="form">Nueva Reserva</button>
+        <button class="view-btn" data-view="table">Últimas Reservas</button>
+    </div>
+
+    <div class="view-container">
+        <div class="view-section active" id="form-view">
+            <div class="reservation-form">
+                <h2 class="mb-4">Nueva Reserva</h2>
+                <form id="reservationForm" method="post">
+                    {% csrf_token %}
+                    
+                    <div class="form-section">
+                        <h3>Información del Huésped</h3>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nombre_huesped">Nombre Completo</label>
+                                {{ form.nombre_huesped }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="numero_documento">Número de Documento</label>
+                                {{ form.numero_documento }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="telefono">Teléfono</label>
+                                {{ form.telefono }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email">Email</label>
+                                {{ form.email }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Detalles de la Reserva</h3>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="fecha_checkin">Fecha Check-in</label>
+                                {{ form.fecha_checkin }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fecha_checkout">Fecha Check-out</label>
+                                {{ form.fecha_checkout }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="tipo_habitacion">Tipo de Habitación</label>
+                                {{ form.tipo_habitacion }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="numero_habitaciones">Número de Habitaciones</label>
+                                {{ form.numero_habitaciones }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="numero_huespedes">Número de Huéspedes</label>
+                                {{ form.numero_huespedes }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Preferencias</h3>
+                        <div class="preferences-grid">
+                            <div class="custom-checkbox">
+                                {{ form.no_fumador }}
+                                <label for="no_fumador">Habitación para no fumadores</label>
+                            </div>
+                            <div class="custom-checkbox">
+                                {{ form.vista_mar }}
+                                <label for="vista_mar">Vista al mar</label>
+                            </div>
+                            <div class="custom-checkbox">
+                                {{ form.acceso_discapacitados }}
+                                <label for="acceso_discapacitados">Acceso para discapacitados</label>
+                            </div>
+                            <div class="custom-checkbox">
+                                {{ form.cama_adicional }}
+                                <label for="cama_adicional">Cama adicional</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Servicios Adicionales</h3>
+                        <div class="preferences-grid">
+                            <div class="custom-checkbox">
+                                {{ form.transporte_aeropuerto }}
+                                <label for="transporte_aeropuerto">Transporte aeropuerto</label>
+                            </div>
+                            <div class="custom-checkbox">
+                                {{ form.tours_locales }}
+                                <label for="tours_locales">Tours locales</label>
+                            </div>
+                            <div class="custom-checkbox">
+                                {{ form.servicio_spa }}
+                                <label for="servicio_spa">Servicio de spa</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Comentarios</h3>
+                        {{ form.comentarios }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Crear Reserva</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="view-section" id="table-view">
+            <div class="reservations-table">
+                <h2 class="p-3">Últimas Reservas</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Huésped</th>
+                                <th>Check-in</th>
+                                <th>Check-out</th>
+                                <th>Habitación</th>
+                                <th>Estado</th>
+                                <th>Puntos</th>
+                                <th>Tiempo para editar</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reserva in reservas %}
+                            <tr data-id="{{ reserva.id }}">
+                                <td>{{ reserva.nombre_huesped }}</td>
+                                <td>{{ reserva.fecha_checkin }}</td>
+                                <td>{{ reserva.fecha_checkout }}</td>
+                                <td>{{ reserva.tipo_habitacion }}</td>
+                                <td><span class="status-badge status-{{ reserva.estado }}">{{ reserva.estado }}</span></td>
+                                <td>{{ reserva.puntos_generados }}</td>
+                                <td>
+                                    {% with dias_restantes=reserva.dias_para_editar %}
+                                    {% if dias_restantes > 0 %}
+                                        <span class="badge bg-info">{{ dias_restantes }} días restantes</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">No editable</span>
+                                    {% endif %}
+                                    {% endwith %}
+                                </td>
+                                <td>
+                                    <button class="edit-btn" onclick="editReservation({{ reserva.id }})"
+                                            {% if reserva.dias_para_editar <= 0 %}disabled{% endif %}>
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de edición -->
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Reserva</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <!-- El formulario se cargará aquí dinámicamente -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar datepickers
+    flatpickr(".datepicker", {
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        locale: "es",
+        disableMobile: "true",
+        position: "auto",
+        theme: "material_blue",
+        animate: true,
+        showMonths: 1,
+        static: true
+    });
+
+    // Manejar el envío del formulario
+    document.getElementById('reservationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        
+        fetch("{% url 'crear_reserva' %}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Mostrar puntos ganados
+                const pointsEarned = document.createElement('div');
+                pointsEarned.className = 'points-earned';
+                pointsEarned.textContent = `¡+${data.puntos_generados} puntos!`;
+                document.body.appendChild(pointsEarned);
+                
+                // Actualizar contador de puntos
+                document.querySelector('.points-value').textContent = data.puntos_totales;
+                
+                // Actualizar tabla
+                location.reload();  // Por simplicidad, recargamos la página
+                
+                setTimeout(() => {
+                    pointsEarned.remove();
+                }, 2000);
+            } else {
+                alert('Error al crear la reserva: ' + Object.values(data.errors).join('\n'));
+            }
+        });
+    });
+
+    // Manejo de las vistas
+    const viewButtons = document.querySelectorAll('.view-btn');
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remover clase active de todos los botones
+            viewButtons.forEach(btn => btn.classList.remove('active'));
+            // Agregar clase active al botón clickeado
+            this.classList.add('active');
+            
+            // Obtener la vista a mostrar
+            const viewToShow = this.dataset.view;
+            
+            // Ocultar todas las vistas
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Mostrar la vista seleccionada
+            document.getElementById(`${viewToShow}-view`).classList.add('active');
+        });
+    });
+});
+
+function editReservation(id) {
+    fetch(`/editar-reserva/${id}/`)
+        .then(response => response.text())
+        .then(html => {
+            const modal = new bootstrap.Modal(document.getElementById('editModal'));
+            document.querySelector('#editModal .modal-body').innerHTML = html;
+            
+            // Inicializar datepickers en el modal
+            flatpickr("#editModal .datepicker", {
+                dateFormat: "Y-m-d",
+                minDate: "today"
+            });
+            
+            // Manejar el envío del formulario de edición
+            document.getElementById('editReservationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                
+                fetch(`/editar-reserva/${id}/`, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        modal.hide();
+                        location.reload();  // Recargar para ver los cambios
+                    } else {
+                        alert('Error al actualizar la reserva: ' + 
+                              Object.values(data.errors).join('\n'));
+                    }
+                });
+            });
+            
+            modal.show();
+        });
+}
+</script>
+{% endblock %} 

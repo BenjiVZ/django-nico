@@ -1,0 +1,55 @@
+<form id="editReservationForm" method="post">
+    {% csrf_token %}
+    <div class="form-section">
+        <h3>Información del Huésped</h3>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Nombre Completo</label>
+                {{ form.nombre_huesped }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Número de Documento</label>
+                {{ form.numero_documento }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Teléfono</label>
+                {{ form.telefono }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Email</label>
+                {{ form.email }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h3>Detalles de la Reserva</h3>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Fecha Check-in</label>
+                {{ form.fecha_checkin }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Fecha Check-out</label>
+                {{ form.fecha_checkout }}
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Tipo de Habitación</label>
+                {{ form.tipo_habitacion }}
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Número de Habitaciones</label>
+                {{ form.numero_habitaciones }}
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Número de Huéspedes</label>
+                {{ form.numero_huespedes }}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </div>
+</form> 

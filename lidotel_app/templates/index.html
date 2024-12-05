@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link href="{% static 'css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Sistema de Puntos Lidotel</h1>
+            <p class="hero-subtitle">Gestiona tus reservas y acumula puntos de manera eficiente</p>
+            <a href="{% url 'auth' %}" class="btn-cta">Comenzar Ahora</a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-star feature-icon"></i>
+                    <h3>Sistema de Puntos</h3>
+                    <p>Acumula puntos por cada reserva y canjéalos por beneficios exclusivos.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-calendar-check feature-icon"></i>
+                    <h3>Gestión de Reservas</h3>
+                    <p>Administra todas tus reservas desde un solo lugar de manera sencilla.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3>Seguimiento en Tiempo Real</h3>
+                    <p>Visualiza tus estadísticas y puntos acumulados en tiempo real.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="stat-card" style="animation-delay: 0.1s">
+                    <div class="stat-number">{{ total_agencias }}</div>
+                    <div class="stat-label">Agencias Registradas</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card" style="animation-delay: 0.2s">
+                    <div class="stat-number">{{ total_reservas }}</div>
+                    <div class="stat-label">Reservas Realizadas</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card" style="animation-delay: 0.3s">
+                    <div class="stat-number">{{ total_puntos }}</div>
+                    <div class="stat-label">Puntos Otorgados</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>¿Listo para empezar?</h2>
+        <p>Únete a nuestra red de agencias y comienza a acumular puntos hoy mismo</p>
+        <a href="{% url 'auth' %}" class="btn-cta">Registrar mi Agencia</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.feature-card').forEach(card => {
+        observer.observe(card);
+    });
+});
+</script>
+{% endblock %}

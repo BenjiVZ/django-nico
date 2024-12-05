@@ -1,0 +1,232 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link href="{% static 'css/admin.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- <div class="admin-nav">
+    <div class="container">
+        <a href="{% url 'admin:index' %}" class="btn">
+            <i class="fas fa-cog"></i> Panel de Administración Django
+        </a>
+    </div>
+</div> -->
+<br>
+
+<div class="container">
+    <h1 class="mb-4">Dashboard Administrativo</h1>
+    
+    <!-- Estadísticas Generales -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h5>Total Puntos</h5>
+                <div class="stats-number">{{ stats.total_puntos }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h5>Agencias Activas</h5>
+                <div class="stats-number">{{ stats.total_agencias }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h5>Total Reservas</h5>
+                <div class="stats-number">{{ stats.total_reservas }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h5>Reservas Recientes</h5>
+                <div class="stats-number">{{ stats.reservas_recientes }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h4>Reservas por Tipo de Habitación</h4>
+                <canvas id="reservasPorTipo"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="chart-container">
+                <h4>Top 5 Agencias por Puntos</h4>
+                <canvas id="puntosPorAgencia"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tablas -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-container">
+                <h4 class="p-3">Últimas Reservas</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Agencia</th>
+                                <th>Huésped</th>
+                                <th>Check-in</th>
+                                <th>Check-out</th>
+                                <th>Tipo</th>
+                                <th>Puntos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reserva in reservas_recientes %}
+                            <tr>
+                                <td>{{ reserva.fecha_creacion|date:"d/m/Y" }}</td>
+                                <td>{{ reserva.agencia.nombre_agencia }}</td>
+                                <td>{{ reserva.nombre_huesped }}</td>
+                                <td>{{ reserva.fecha_checkin|date:"d/m/Y" }}</td>
+                                <td>{{ reserva.fecha_checkout|date:"d/m/Y" }}</td>
+                                <td>{{ reserva.tipo_habitacion.nombre }}</td>
+                                <td>{{ reserva.puntos_generados }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Datos para los gráficos
+    const reservasPorTipoData = {{ chart_data.reservas_por_tipo|safe }};
+    const puntosPorAgenciaData = {{ chart_data.puntos_por_agencia|safe }};
+    
+    // Paleta de colores degradados
+    const colors = [
+        '#c62e2e', // 600
+        '#902424', // 800
+        '#ae2727', // 700
+        '#782424', // 900
+        '#e35050', // 500
+        '#ef7a7a', // 400
+        '#f6abab', // 300
+        '#facece', // 200
+        '#fce4e4', // 100
+        '#fdf3f3', // 50
+    ];
+
+    // Gradientes para las barras
+    const ctx = document.getElementById('puntosPorAgencia').getContext('2d');
+    const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
+    barGradient.addColorStop(0, '#c62e2e');    // 600
+    barGradient.addColorStop(0.5, '#ae2727');  // 700
+    barGradient.addColorStop(1, '#782424');    // 900
+
+    // Gráfico de Reservas por Tipo (Dona)
+    new Chart(document.getElementById('reservasPorTipo'), {
+        type: 'doughnut',
+        data: {
+            labels: reservasPorTipoData.map(item => item.tipo_habitacion__nombre),
+            datasets: [{
+                data: reservasPorTipoData.map(item => item.total),
+                backgroundColor: colors,
+                borderColor: '#410e0e',
+                borderWidth: 2,
+                hoverBackgroundColor: colors.map(color => color + 'dd'),
+                hoverBorderColor: '#782424',
+                hoverBorderWidth: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#fdf3f3',
+                        font: {
+                            size: 12,
+                            weight: '500'
+                        },
+                        padding: 20
+                    }
+                }
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            }
+        }
+    });
+
+    // Gráfico de Puntos por Agencia (Barras)
+    new Chart(document.getElementById('puntosPorAgencia'), {
+        type: 'bar',
+        data: {
+            labels: puntosPorAgenciaData.map(item => item.nombre_agencia),
+            datasets: [{
+                label: 'Puntos',
+                data: puntosPorAgenciaData.map(item => item.puntos),
+                backgroundColor: barGradient,
+                borderColor: '#410e0e',
+                borderWidth: 2,
+                borderRadius: 10,
+                hoverBackgroundColor: '#c62e2e',
+                hoverBorderColor: '#782424',
+                hoverBorderWidth: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(246, 171, 171, 0.1)',
+                        drawBorder: false
+                    },
+                    ticks: {
+                        color: '#fdf3f3',
+                        font: {
+                            weight: '500'
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#fdf3f3',
+                        font: {
+                            weight: '500'
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(65, 14, 14, 0.9)',
+                    titleColor: '#fdf3f3',
+                    bodyColor: '#fdf3f3',
+                    padding: 12,
+                    borderColor: '#782424',
+                    borderWidth: 1
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %} 
