@@ -1,0 +1,65 @@
+/* Navbar Styles */
+.navbar {
+    background: linear-gradient(135deg, #090910 0%, #36363b 100%);
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.navbar-brand {
+    color: #eceeff !important;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.nav-link {
+    color: #eceeff !important;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #d0a616 !important;
+    transform: translateY(-2px);
+}
+
+.navbar-toggler {
+    border-color: rgba(255,255,255,0.5);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Card Styles */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+/* Button Styles */
+.btn-primary {
+    background: #36363b;
+    border-color: #36363b;
+    color: #eceeff;
+}
+
+.btn-primary:hover {
+    background: #090910;
+    border-color: #090910;
+    color: #d0a616;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+} 

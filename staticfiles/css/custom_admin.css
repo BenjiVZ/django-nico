@@ -1,0 +1,401 @@
+/* Paleta de colores unificada */
+:root {
+    --primary: #c62e2e;          /* Rojo principal */
+    --primary-dark: #902424;     /* Rojo oscuro */
+    --primary-light: #e35050;    /* Rojo claro */
+    --accent: #d0a616;          /* Dorado para acentos */
+    --dark: #090910;            /* Negro para fondos */
+    --darker: #060606;          /* Negro más profundo */
+    --light: #fdf3f3;          /* Blanco rojizo */
+    --gray: #36363b;           /* Gris neutro */
+    --error: #991b48;          /* Rojo error */
+}
+
+/* Estilos generales */
+body {
+    background: var(--dark);
+    color: var(--light);
+}
+
+/* Navbar superior */
+.navbar {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary)) !important;
+}
+
+/* Sidebar */
+.sidebar-dark-primary {
+    background: var(--darker) !important;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+    background-color: var(--primary) !important;
+    color: var(--light) !important;
+}
+
+.nav-sidebar .nav-item > .nav-link:hover {
+    background-color: rgba(198, 46, 46, 0.1) !important;
+}
+
+.nav-sidebar .nav-treeview > .nav-item > .nav-link.active {
+    background-color: rgba(198, 46, 46, 0.2) !important;
+    color: var(--primary-light) !important;
+}
+
+/* Contenido principal */
+.content-wrapper {
+    background: var(--dark) !important;
+}
+
+/* Cards y contenedores */
+.card {
+    background: rgba(9, 9, 16, 0.95) !important;
+    border: 1px solid rgba(198, 46, 46, 0.1) !important;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Formularios */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(198, 46, 46, 0.2) !important;
+    color: var(--light) !important;
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 0.2rem rgba(198, 46, 46, 0.25) !important;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary-dark) !important;
+    color: var(--light) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+}
+
+/* Enlaces */
+a {
+    color: var(--primary-light) !important;
+}
+
+a:hover {
+    color: var(--primary) !important;
+}
+
+/* Tablas */
+.table {
+    color: var(--light) !important;
+}
+
+.table thead th {
+    background-color: rgba(198, 46, 46, 0.1) !important;
+    border-bottom: 2px solid var(--primary) !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(198, 46, 46, 0.05) !important;
+}
+
+/* Select2 */
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(198, 46, 46, 0.2) !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--primary) !important;
+    color: var(--light) !important;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+    background-color: transparent !important;
+}
+
+.breadcrumb-item.active {
+    color: var(--primary-light) !important;
+}
+
+/* Mensajes y alertas */
+.alert-info {
+    background-color: rgba(198, 46, 46, 0.1) !important;
+    border-color: rgba(198, 46, 46, 0.2) !important;
+    color: var(--primary-light) !important;
+}
+
+/* Paginación */
+.page-item.active .page-link {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+/* Elementos de texto */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+p, span, label {
+    color: var(--light) !important;
+}
+
+/* Campos de solo lectura */
+.readonly {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(198, 46, 46, 0.1) !important;
+    color: var(--light) !important;
+}
+
+/* Widgets de fecha/hora */
+.calendar-box,
+.clockbox {
+    background-color: var(--darker) !important;
+    border: 1px solid rgba(198, 46, 46, 0.2) !important;
+    color: var(--light) !important;
+}
+
+/* Tooltips */
+.tooltip-inner {
+    background-color: var(--primary-dark) !important;
+    color: var(--light) !important;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Ajustar botones de acción específicos */
+.related-widget-wrapper-link {
+    background-color: var(--primary) !important;
+    border-color: var(--primary-dark) !important;
+    color: var(--light) !important;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-decoration: none !important;
+}
+
+.related-widget-wrapper-link:hover {
+    background-color: var(--primary-dark) !important;
+    color: var(--light) !important;
+    text-decoration: none !important;
+}
+
+.addlink, .add-another {
+    background-color: var(--primary) !important;
+    border-color: var(--primary-dark) !important;
+    color: var(--light) !important;
+}
+
+.addlink:hover, .add-another:hover {
+    background-color: var(--primary-dark) !important;
+    color: var(--light) !important;
+}
+
+/* Ajustar botones de acción en general */
+.object-tools a {
+    background-color: var(--primary) !important;
+    color: var(--light) !important;
+}
+
+.object-tools a:hover {
+    background-color: var(--primary-dark) !important;
+}
+
+/* Asegurar que los íconos dentro de los botones también tengan el color correcto */
+.related-widget-wrapper-link img,
+.addlink img,
+.add-another img {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Ajustar específicamente los botones de add y cambiar */
+.related-widget-wrapper a.related-widget-wrapper-link,
+.related-widget-wrapper a.add-related,
+a.addlink,
+a.add-another,
+.add-row a,
+.add-row td a {
+    color: #ffffff !important;
+}
+
+/* Asegurar que los íconos sean blancos */
+.related-widget-wrapper a.related-widget-wrapper-link img,
+.related-widget-wrapper a.add-related img,
+a.addlink img,
+a.add-another img {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Mantener el color blanco en hover */
+.related-widget-wrapper a.related-widget-wrapper-link:hover,
+.related-widget-wrapper a.add-related:hover,
+a.addlink:hover,
+a.add-another:hover,
+.add-row a:hover,
+.add-row td a:hover {
+    color: #ffffff !important;
+}
+
+/* Forzar color blanco en botones específicos del admin */
+.field-nombre_agencia a,           /* Botón cambiar en campo agencia */
+.field-tipo_habitacion a,          /* Botón cambiar en campo tipo habitación */
+.related-widget-wrapper > a,       /* Todos los botones relacionados */
+.addlink,                          /* Botón añadir */
+.changelink {                      /* Botón cambiar */
+    color: #ffffff !important;
+    font-weight: normal !important;
+}
+
+/* Asegurar que el hover también mantenga el texto blanco */
+.field-nombre_agencia a:hover,
+.field-tipo_habitacion a:hover,
+.related-widget-wrapper > a:hover,
+.addlink:hover,
+.changelink:hover {
+    color: #ffffff !important;
+}
+
+/* Asegurar que los íconos sean blancos */
+.field-nombre_agencia a img,
+.field-tipo_habitacion a img,
+.related-widget-wrapper > a img,
+.addlink img,
+.changelink img {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Botones de add en tablas - selectores más específicos */
+.inline-group table tbody tr.add-row td a,
+.inline-group table tbody tr.add-row a,
+tr.add-row td a,
+tr.add-row a,
+.inline-related .add-row a,
+.inline-related td.original p a,
+.inline-group ul.tools a.add,
+.tabular tr.add-row td a,
+.inline-group .tabular tr.add-row td a,
+.inline-group .tabular .add-row td a,
+.add-row > td > a,
+.add-row > td:last-child > a,
+.inline-group .add-row > td > a {
+    color: #ffffff !important;
+    font-weight: normal !important;
+}
+
+/* Hover estados */
+.inline-group table tbody tr.add-row td a:hover,
+.inline-group table tbody tr.add-row a:hover,
+tr.add-row td a:hover,
+tr.add-row a:hover,
+.inline-related .add-row a:hover,
+.inline-related td.original p a:hover,
+.inline-group ul.tools a.add:hover,
+.tabular tr.add-row td a:hover,
+.inline-group .tabular tr.add-row td a:hover,
+.inline-group .tabular .add-row td a:hover,
+.add-row > td > a:hover,
+.add-row > td:last-child > a:hover,
+.inline-group .add-row > td > a:hover {
+    color: #ffffff !important;
+}
+
+/* Botones verdes de add en tablas */
+.submit-row a.addlink,
+td.original a.add-related,
+.inline-group .tabular tr.add-row td a.add-related,
+.add-related,
+.add-another,
+a[href^="add/"],
+.inline-group a.add-related,
+.inline-related a.add-related,
+.inline-group a.add,
+.empty-form a.add-related,
+.inline-group .tabular .add-row > td > a {
+    color: #ffffff !important;
+    font-weight: normal !important;
+}
+
+/* Hover para los botones verdes */
+.submit-row a.addlink:hover,
+td.original a.add-related:hover,
+.inline-group .tabular tr.add-row td a.add-related:hover,
+.add-related:hover,
+.add-another:hover,
+a[href^="add/"]:hover,
+.inline-group a.add-related:hover,
+.inline-related a.add-related:hover,
+.inline-group a.add:hover,
+.empty-form a.add-related:hover,
+.inline-group .tabular .add-row > td > a:hover {
+    color: #ffffff !important;
+}
+
+/* Botones de add con clase btn-success */
+.btn-success,
+a.btn-success,
+.btn-success > i,
+.btn-success > span,
+a[href*="/add/"].btn-success {
+    color: #ffffff !important;
+    font-weight: normal !important;
+}
+
+/* Hover estado */
+.btn-success:hover,
+a.btn-success:hover,
+.btn-success:hover > i,
+.btn-success:hover > span,
+a[href*="/add/"].btn-success:hover {
+    color: #ffffff !important;
+}
+
+/* Asegurar que los íconos dentro del botón sean blancos */
+.btn-success i,
+.btn-success .fa,
+.btn-success .fas,
+.btn-success .far {
+    color: #ffffff !important;
+}
+
+/* Icono de sección en la parte superior derecha */
+.nav-icon,
+.nav-link > i,
+.brand-link i,
+.brand-link .fa,
+.brand-link .fas,
+.brand-link .far,
+.user-panel i,
+.nav-sidebar i {
+    color: #ffffff !important;
+}
+
+/* También asegurar que se mantenga blanco en hover */
+.nav-icon:hover,
+.nav-link:hover > i,
+.brand-link:hover i,
+.brand-link:hover .fa,
+.brand-link:hover .fas,
+.brand-link:hover .far,
+.user-panel:hover i,
+.nav-sidebar:hover i {
+    color: #ffffff !important;
+}
+  
